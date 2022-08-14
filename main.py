@@ -12,7 +12,7 @@ DISPLAY = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 BG_COLOR = (0, 0, 0)
 
-ball = Ball(Vector2(10, 10), Vector2(12, 10), 5, 10)
+ball = Ball(Vector2(10, 10), Vector2(12, 10), 12, 10)
 
 
 def main():

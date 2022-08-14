@@ -4,7 +4,7 @@ import pygame
 class Ball:
     def __init__(self, position, direction, velocity, size):
         self.position = position
-        self.direction = direction
+        self.direction = direction.normalize() * velocity
         self.velocity = velocity
         self.size = size
 
