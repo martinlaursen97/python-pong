@@ -1,12 +1,14 @@
 import sys
-
 from pygame import *
-
 from ball import *
 
 pygame.init()
 
-DISPLAY = pygame.display.set_mode((500, 500), 0, 32)
+
+SCREEN_WIDTH = 800
+SCREEN_HEIGHT = 600
+
+DISPLAY = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 BG_COLOR = (0, 0, 0)
 
@@ -29,4 +31,5 @@ def main():
         pygame.time.delay(10)
 
 
-main()
+if __name__ == "__main__":
+    main()
