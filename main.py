@@ -18,7 +18,7 @@ COMPUTER_PADDLE_SPEED = 5
 
 INITIAL_BALL_VELOCITY = 11
 
-ball = Ball(Vector2(50, 50), Vector2(1, 3), INITIAL_BALL_VELOCITY, 10, DISPLAY)
+ball = Ball(Vector2(50, 50), Vector2(1, 1), INITIAL_BALL_VELOCITY, 10, DISPLAY)
 paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 100, DISPLAY)
 paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 100, DISPLAY, COMPUTER_PADDLE_SPEED)
 
@@ -41,7 +41,7 @@ def main():
 
         DISPLAY.fill(BG_COLOR)
 
-        ball.update()
+        ball.update(paddle_player)
         paddle_player.update(ball)
         paddle_computer.update(ball)
 

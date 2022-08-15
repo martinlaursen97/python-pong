@@ -25,6 +25,7 @@ class Paddle:
 
 class Player(Paddle):
     def update(self, ball):
+
         self.draw()
 
 
