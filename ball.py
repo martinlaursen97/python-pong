@@ -1,3 +1,5 @@
+import random
+
 import pygame
 
 
@@ -6,6 +8,9 @@ class Ball:
         self.position = position
         self.direction = direction.normalize()
         self.velocity = velocity
+
+        self.initial_velocity = velocity
+
         self.size = size
         self.display = display
         self.shooting_angle = 100
@@ -52,13 +57,13 @@ class Ball:
 
             if self.collides_with_right_wall(next_x):
                 paddles[1].score += 1
-                self.direction.x = -abs(self.direction.x)
-                break
+                self.reset_ball()
+                return
 
             elif self.collides_with_left_wall(next_x):
                 paddles[0].score += 1
-                self.direction.x = abs(self.direction.x)
-                break
+                self.reset_ball()
+                return
 
             elif self.collides_with_floor(next_y):
                 self.direction.y = -abs(self.direction.y)
@@ -86,3 +91,14 @@ class Ball:
 
     def collides_with_right_wall(self, next_x):
         return next_x >= self.display.get_width() - self.size
+
+    def reset_ball(self):
+        n = random.randint(0, 1)
+        x_shift = -200 if n == 0 else 200
+        x_dir_shift = 1 if n == 0 else -1
+        y_dir_shift = 1 if n == 0 else -1
+        self.position.x = self.display.get_width() / 2 + x_shift
+        self.position.y = self.display.get_height() / 2
+        self.direction.x = x_dir_shift
+        self.direction.y = y_dir_shift
+        self.velocity = self.initial_velocity
