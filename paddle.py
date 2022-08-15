@@ -8,9 +8,6 @@ class Paddle:
         self.height = height
         self.display = display
 
-    def update(self):
-        self.draw()
-
     def draw(self):
         rect = pygame.Rect(self.position.x - self.width / 2, self.position.y - self.height / 2, self.width, self.height)
         pygame.draw.rect(self.display, (255, 255, 255), rect)
@@ -27,8 +24,21 @@ class Paddle:
 
 
 class Player(Paddle):
-    pass
+    def update(self):
+        self.draw()
 
 
 class Computer(Paddle):
-    pass
+    def __init__(self, position, width, height, display, paddle_speed):
+        super().__init__(position, width, height, display)
+        self.paddle_speed = paddle_speed
+
+    def update(self, ball_position):
+        self.draw()
+        self.track_ball(ball_position)
+
+    def track_ball(self, ball_position):
+        if self.position.y > ball_position.y:
+            self.move((0, -self.paddle_speed))
+        else:
+            self.move((0, self.paddle_speed))
