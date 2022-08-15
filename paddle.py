@@ -12,7 +12,7 @@ class Paddle:
         self.draw()
 
     def draw(self):
-        rect = pygame.Rect(self.position.x - self.width / 2, self.position.y - self.height / 2, self.width, self.height)
+        rect = pygame.Rect(self.position.x - self.width/2, self.position.y - self.height/2, self.width, self.height)
         pygame.draw.rect(self.display, (255, 255, 255), rect)
 
 
