@@ -31,7 +31,7 @@ text_rect = text.get_rect()
 text_rect.center = (SCREEN_WIDTH / 2, 20)
 
 
-def main():
+def mainloop():
     while True:
 
         for e in pygame.event.get():
@@ -59,4 +59,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    mainloop()

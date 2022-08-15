@@ -36,6 +36,7 @@ class Ball:
             for paddle in paddles:
                 if self.collides_with_paddle(paddle, next_x, next_y):
 
+                    paddle.score += 1
                     self.velocity += 1
                     temp_shifted_paddle_pos = pygame.Vector2(paddle.position.x, paddle.position.y)
 
