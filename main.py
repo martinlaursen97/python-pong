@@ -26,13 +26,13 @@ paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2)
 paddles = [paddle_player, paddle_computer]
 
 font = pygame.font.Font("freesansbold.ttf", 32)
-text = font.render("{} - {}".format(paddle_player.score, paddle_computer.score), True, (255, 255, 255))
-text_rect = text.get_rect()
-text_rect.center = (SCREEN_WIDTH / 2, 20)
 
 
 def mainloop():
     while True:
+        text = font.render("{} - {}".format(paddle_player.score, paddle_computer.score), True, (255, 255, 255))
+        text_rect = text.get_rect()
+        text_rect.center = (SCREEN_WIDTH / 2, 20)
 
         for e in pygame.event.get():
             _key = pygame.key.get_pressed()

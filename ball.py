@@ -36,7 +36,6 @@ class Ball:
             for paddle in paddles:
                 if self.collides_with_paddle(paddle, next_x, next_y):
 
-                    paddle.score += 1
                     self.velocity += 1
                     temp_shifted_paddle_pos = pygame.Vector2(paddle.position.x, paddle.position.y)
 
@@ -51,11 +50,13 @@ class Ball:
                     self.move(next_x, next_y)
                     return
 
-            if next_x >= self.display.get_width() - self.size:
+            if self.collides_with_right_wall(next_x):
+                paddles[1].score += 1
                 self.direction.x = -abs(self.direction.x)
                 break
 
-            elif next_x <= 0 + self.size:
+            elif self.collides_with_left_wall(next_x):
+                paddles[0].score += 1
                 self.direction.x = abs(self.direction.x)
                 break
 
@@ -79,3 +80,9 @@ class Ball:
 
     def collides_with_floor(self, next_y):
         return next_y > self.display.get_height() - self.size
+
+    def collides_with_left_wall(self, next_x):
+        return next_x <= 0 + self.size
+
+    def collides_with_right_wall(self, next_x):
+        return next_x >= self.display.get_width() - self.size
