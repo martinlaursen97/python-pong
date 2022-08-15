@@ -33,9 +33,9 @@ class Computer(Paddle):
         super().__init__(position, width, height, display)
         self.paddle_speed = paddle_speed
 
-    def update(self, ball_position):
+    def update(self, ball):
         self.draw()
-        self.track_ball(ball_position)
+        self.track_ball(ball.position)
 
     def track_ball(self, ball_position):
         if self.position.y > ball_position.y:

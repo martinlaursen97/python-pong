@@ -41,7 +41,7 @@ def main():
 
         ball.update()
         paddle_player.update()
-        paddle_computer.update(ball.position)
+        paddle_computer.update(ball)
 
         pygame.display.update()
         pygame.time.delay(10)
