@@ -12,9 +12,11 @@ DISPLAY = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
 BG_COLOR = (0, 0, 0)
 
+PADDLE_GAP = 50
+
 ball = Ball(Vector2(10, 10), Vector2(12, 10), 5, 10, DISPLAY)
-paddle_player = Player(Vector2(30, SCREEN_HEIGHT / 2), 20, 100, DISPLAY)
-paddle_computer = Computer(Vector2(SCREEN_WIDTH - 30, SCREEN_HEIGHT / 2), 20, 100, DISPLAY)
+paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 100, DISPLAY)
+paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 100, DISPLAY)
 
 
 def main():
