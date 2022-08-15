@@ -2,24 +2,25 @@ import pygame
 
 
 class Ball:
-    def __init__(self, position, direction, velocity, size):
+    def __init__(self, position, direction, velocity, size, display):
         self.position = position
         self.direction = direction.normalize() * velocity
         self.velocity = velocity
         self.size = size
+        self.display = display
 
-    def update(self, display):
-        self.check_collisions(display)
+    def update(self):
+        self.check_collisions()
         self.move()
-        self.draw(display)
+        self.draw()
 
     def move(self):
         self.position += self.direction
 
-    def draw(self, display):
-        pygame.draw.circle(display, (255, 255, 255), self.position, self.size)
+    def draw(self):
+        pygame.draw.circle(self.display, (255, 255, 255), self.position, self.size)
 
-    def check_collisions(self, display):
+    def check_collisions(self):
 
         # check for collision between current and next position
         for i in range(self.velocity):
@@ -27,7 +28,7 @@ class Ball:
             next_x = self.position.x
             next_y = self.position.y
 
-            if next_x >= display.get_width() - self.size:
+            if next_x >= self.display.get_width() - self.size:
                 self.direction.x = -self.direction.x
                 break
 
@@ -35,7 +36,7 @@ class Ball:
                 self.direction.x = abs(self.direction.x)
                 break
 
-            if next_y > display.get_height() - self.size:
+            if next_y > self.display.get_height() - self.size:
                 self.direction.y = -self.direction.y
                 break
 
