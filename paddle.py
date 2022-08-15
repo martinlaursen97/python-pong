@@ -7,6 +7,7 @@ class Paddle:
         self.width = width
         self.height = height
         self.display = display
+        self.score = 0
 
     def draw(self):
         rect = pygame.Rect(self.position.x - self.width / 2, self.position.y - self.height / 2, self.width, self.height)
@@ -24,8 +25,7 @@ class Paddle:
 
 
 class Player(Paddle):
-    def update(self, ball):
-
+    def update(self):
         self.draw()
 
 

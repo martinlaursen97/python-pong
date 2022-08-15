@@ -19,11 +19,16 @@ COMPUTER_PADDLE_SPEED = 5
 INITIAL_BALL_VELOCITY = 5
 
 ball = Ball(Vector2(500, SCREEN_WIDTH / 2), Vector2(-1, 0), INITIAL_BALL_VELOCITY, 10, DISPLAY)
-paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 400, DISPLAY)
-paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 100, DISPLAY,
+paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 200, DISPLAY)
+paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 200, DISPLAY,
                            COMPUTER_PADDLE_SPEED)
 
 paddles = [paddle_player, paddle_computer]
+
+font = pygame.font.Font("freesansbold.ttf", 32)
+text = font.render("{} - {}".format(paddle_player.score, paddle_computer.score), True, (255, 255, 255))
+text_rect = text.get_rect()
+text_rect.center = (SCREEN_WIDTH / 2, 20)
 
 
 def main():
@@ -43,9 +48,10 @@ def main():
                 sys.exit()
 
         DISPLAY.fill(BG_COLOR)
+        DISPLAY.blit(text, text_rect)
 
         ball.update(paddles)
-        paddle_player.update(ball)
+        paddle_player.update()
         paddle_computer.update(ball)
 
         pygame.display.update()
