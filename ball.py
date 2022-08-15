@@ -6,14 +6,14 @@ import pygame
 class Ball:
     def __init__(self, position, direction, velocity, size, display):
         self.position = position
-        self.direction = direction.normalize()
+        self.direction = direction
         self.velocity = velocity
 
         self.initial_velocity = velocity
 
         self.size = size
         self.display = display
-        self.shooting_angle = 100
+        self.shooting_angle = 80
 
     def update(self, paddles):
         self.check_collisions(paddles)
@@ -56,12 +56,12 @@ class Ball:
                     return
 
             if self.collides_with_right_wall(next_x):
-                paddles[1].score += 1
+                paddles[0].score += 1
                 self.reset_ball()
                 return
 
             elif self.collides_with_left_wall(next_x):
-                paddles[0].score += 1
+                paddles[1].score += 1
                 self.reset_ball()
                 return
 
