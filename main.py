@@ -40,7 +40,7 @@ def main():
         DISPLAY.fill(BG_COLOR)
 
         ball.update()
-        paddle_player.update()
+        paddle_player.update(ball)
         paddle_computer.update(ball)
 
         pygame.display.update()
