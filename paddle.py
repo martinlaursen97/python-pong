@@ -20,8 +20,8 @@ class Paddle:
 
 class Player(Paddle):
 
-    def move(self, shift):
-        self.position += shift
+    def move(self, translation):
+        self.position += translation
 
 
 class Computer(Paddle):
