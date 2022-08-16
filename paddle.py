@@ -1,4 +1,5 @@
 import pygame
+import difficulty
 
 
 class Paddle:
@@ -30,14 +31,14 @@ class Player(Paddle):
 
 
 class Computer(Paddle):
-    def __init__(self, position, width, height, display, paddle_speed, difficulty):
+    def __init__(self, position, width, height, display, paddle_speed, _difficulty):
         super().__init__(position, width, height, display)
         self.paddle_speed = paddle_speed
-        self.DIFFICULTY = difficulty
+        self.DIFFICULTY = _difficulty
 
     def update(self, ball):
         self.draw()
-        if self.DIFFICULTY.HARD:
+        if self.DIFFICULTY == difficulty.Difficulty.HARD:
             self.track_ball_trajectory(ball.trajectory_pos)
         else:
             self.track_ball(ball.position)
@@ -49,5 +50,8 @@ class Computer(Paddle):
             self.move((0, self.paddle_speed))
 
     def track_ball_trajectory(self, ball_trajectory_pos):
-        pass
+        if self.position.y > ball_trajectory_pos.y:
+            self.move((0, -self.paddle_speed))
+        else:
+            self.move((0, self.paddle_speed))
 

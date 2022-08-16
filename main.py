@@ -18,13 +18,16 @@ PLAYER_PADDLE_SPEED = 5
 COMPUTER_PADDLE_SPEED = 3
 
 INITIAL_BALL_VELOCITY = 5
+BALL_SIZE = 10
 
 DIFFICULTY = Difficulty.HARD
 
-ball = Ball(Vector2(75, 50), Vector2(1, 0.5), INITIAL_BALL_VELOCITY, 10, DISPLAY, PADDLE_GAP)
+ball = Ball(Vector2(PADDLE_GAP + BALL_SIZE + 10, 50), Vector2(1, 0.5), INITIAL_BALL_VELOCITY, BALL_SIZE, DISPLAY,
+            PADDLE_GAP)
+
 paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY)
 paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY,
-                           COMPUTER_PADDLE_SPEED, Difficulty)
+                           COMPUTER_PADDLE_SPEED, DIFFICULTY)
 
 paddles = [paddle_player, paddle_computer]
 

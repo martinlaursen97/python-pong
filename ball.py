@@ -16,13 +16,11 @@ class Ball:
         self.shooting_angle = 80
         self.PADDLE_GAP = paddle_gap
 
-        self.trajectory_pos = pygame.Vector2(paddle_gap + size / 2, display.get_height() / 2)
+        self.set_trajectory_pos()
 
     def update(self, paddles):
         self.check_collisions(paddles)
-
         self.draw()
-        pygame.draw.circle(self.display, (255, 0, 0), self.trajectory_pos, 20)
 
     def move(self, next_x, next_y):
         self.position.x = next_x
@@ -69,6 +67,7 @@ class Ball:
             if self.collides_with_right_wall(next_x):
                 paddles[0].score += 1
                 self.reset_ball()
+                self.reset_trajectory_pos()
                 return
 
             elif self.collides_with_left_wall(next_x):
@@ -93,7 +92,7 @@ class Ball:
     def set_trajectory_pos(self):
         x_paddle_plane = self.display.get_width() - (self.PADDLE_GAP + self.size / 2)
         dir_norm = self.direction.normalize()
-        temp_trajectory_pos = pygame.Vector2(self.trajectory_pos.x, self.trajectory_pos.y)
+        temp_trajectory_pos = pygame.Vector2(self.position.x, self.position.y)
 
         while temp_trajectory_pos.x <= x_paddle_plane:
             if self.collides_with_floor(temp_trajectory_pos.y):
@@ -117,11 +116,11 @@ class Ball:
         return next_y > self.display.get_height() - self.size
 
     def collides_with_left_wall(self, next_x):
-        self.reset_trajectory_pos()
+
         return next_x <= self.size
 
     def collides_with_right_wall(self, next_x):
-        self.reset_trajectory_pos()
+
         return next_x >= self.display.get_width() - self.size
 
     def reset_ball(self):
@@ -134,3 +133,6 @@ class Ball:
         self.direction.x = x_dir_shift
         self.direction.y = y_dir_shift
         self.velocity = self.initial_velocity
+
+        if n == 0:
+            self.set_trajectory_pos()
