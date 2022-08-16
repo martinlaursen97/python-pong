@@ -21,7 +21,7 @@ INITIAL_BALL_VELOCITY = 5
 
 DIFFICULTY = Difficulty.HARD
 
-ball = Ball(Vector2(75, 50), Vector2(1, 0.5), INITIAL_BALL_VELOCITY, 10, DISPLAY)
+ball = Ball(Vector2(75, 50), Vector2(1, 0.5), INITIAL_BALL_VELOCITY, 10, DISPLAY, PADDLE_GAP)
 paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY)
 paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY,
                            COMPUTER_PADDLE_SPEED, Difficulty)

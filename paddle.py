@@ -37,10 +37,17 @@ class Computer(Paddle):
 
     def update(self, ball):
         self.draw()
-        self.track_ball(ball.position)
+        if self.DIFFICULTY.HARD:
+            self.track_ball_trajectory(ball.trajectory_pos)
+        else:
+            self.track_ball(ball.position)
 
     def track_ball(self, ball_position):
         if self.position.y > ball_position.y:
             self.move((0, -self.paddle_speed))
         else:
             self.move((0, self.paddle_speed))
+
+    def track_ball_trajectory(self, ball_trajectory_pos):
+        pass
+
