@@ -49,8 +49,11 @@ def mainloop():
                     down = True
 
             if e.type == KEYUP:
-                up = False
-                down = False
+                if e.key == K_w:
+                    up = False
+
+                if e.key == K_s:
+                    down = False
 
             if e.type == QUIT:
                 pygame.quit()
