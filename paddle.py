@@ -30,9 +30,10 @@ class Player(Paddle):
 
 
 class Computer(Paddle):
-    def __init__(self, position, width, height, display, paddle_speed):
+    def __init__(self, position, width, height, display, paddle_speed, difficulty):
         super().__init__(position, width, height, display)
         self.paddle_speed = paddle_speed
+        self.DIFFICULTY = difficulty
 
     def update(self, ball):
         self.draw()
