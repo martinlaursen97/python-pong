@@ -81,13 +81,13 @@ class Ball:
         return within_x_plane and within_y_plane
 
     def collides_with_roof(self, next_y):
-        return next_y < 0 + self.size
+        return next_y < self.size
 
     def collides_with_floor(self, next_y):
         return next_y > self.display.get_height() - self.size
 
     def collides_with_left_wall(self, next_x):
-        return next_x <= 0 + self.size
+        return next_x <= self.size
 
     def collides_with_right_wall(self, next_x):
         return next_x >= self.display.get_width() - self.size
