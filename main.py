@@ -13,14 +13,14 @@ DISPLAY = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 BG_COLOR = (0, 0, 0)
 
 PADDLE_GAP = 50
-PLAYER_PADDLE_SPEED = 10
+PLAYER_PADDLE_SPEED = 5
 COMPUTER_PADDLE_SPEED = 5
 
 INITIAL_BALL_VELOCITY = 5
 
 ball = Ball(Vector2(75, 50), Vector2(1, 0.5), INITIAL_BALL_VELOCITY, 10, DISPLAY)
-paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 200, DISPLAY)
-paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 200, DISPLAY,
+paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY)
+paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY,
                            COMPUTER_PADDLE_SPEED)
 
 paddles = [paddle_player, paddle_computer]
@@ -29,23 +29,38 @@ font = pygame.font.Font("freesansbold.ttf", 32)
 
 
 def mainloop():
+    up = False
+    down = False
+
     while True:
         text = font.render("{} - {}".format(paddle_player.score, paddle_computer.score), True, (255, 255, 255))
         text_rect = text.get_rect()
         text_rect.center = (SCREEN_WIDTH / 2, 20)
 
         for e in pygame.event.get():
-            _key = pygame.key.get_pressed()
 
-            if _key[K_s]:
-                paddle_player.move((0, PLAYER_PADDLE_SPEED))
+            if e.type == KEYDOWN:
+                if e.key == K_w:
+                    down = False
+                    up = True
 
-            if _key[K_w]:
-                paddle_player.move((0, -PLAYER_PADDLE_SPEED))
+                if e.key == K_s:
+                    up = False
+                    down = True
+
+            if e.type == KEYUP:
+                up = False
+                down = False
 
             if e.type == QUIT:
                 pygame.quit()
                 sys.exit()
+
+        if up:
+            paddle_player.move((0, -PLAYER_PADDLE_SPEED))
+
+        if down:
+            paddle_player.move((0, PLAYER_PADDLE_SPEED))
 
         DISPLAY.fill(BG_COLOR)
         DISPLAY.blit(text, text_rect)
