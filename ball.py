@@ -4,12 +4,12 @@ import pygame
 
 
 class Ball:
-    def __init__(self, position, direction, velocity, size, display, paddle_gap):
+    def __init__(self, position, direction, speed, size, display, paddle_gap):
         self.position = position
         self.direction = direction
-        self.velocity = velocity
+        self.speed = speed
 
-        self.initial_velocity = velocity
+        self.initial_speed = speed
 
         self.size = size
         self.display = display
@@ -36,7 +36,7 @@ class Ball:
         next_y = self.position.y
 
         # check for collision between current and next position
-        for i in range(self.velocity):
+        for i in range(self.speed):
 
             next_x += dir_norm.x
             next_y += dir_norm.y
@@ -44,7 +44,7 @@ class Ball:
             for paddle in paddles:
                 if self.collides_with_paddle(paddle, next_x, next_y):
 
-                    self.velocity += 1
+                    self.speed += 1
                     temp_shifted_paddle_pos = pygame.Vector2(paddle.position.x, paddle.position.y)
 
                     left_side = self.position.x < self.display.get_width() / 2
@@ -136,7 +136,7 @@ class Ball:
         self.position.y = self.display.get_height() / 2
         self.direction.x = x_dir_shift
         self.direction.y = y_dir_shift
-        self.velocity = self.initial_velocity
+        self.speed = self.initial_speed
 
         # if n == 0, the ball will go towards the computers side
         if n == 0:
