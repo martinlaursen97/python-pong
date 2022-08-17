@@ -54,6 +54,9 @@ def mainloop():
                     up = False
                     down = True
 
+                if e.key == K_F11:
+                    pygame.display.toggle_fullscreen()
+
             if e.type == KEYUP:
                 if e.key == K_w:
                     up = False
