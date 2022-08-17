@@ -138,5 +138,6 @@ class Ball:
         self.direction.y = y_dir_shift
         self.velocity = self.initial_velocity
 
+        # if n == 0, the ball will go towards the computers side
         if n == 0:
             self.set_trajectory_pos()
