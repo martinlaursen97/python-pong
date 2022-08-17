@@ -66,13 +66,13 @@ class Ball:
 
             if self.collides_with_right_wall(next_x):
                 paddles[0].score += 1
-                self.reset_ball()
+                self.reset()
                 self.reset_trajectory_pos()
                 return
 
             elif self.collides_with_left_wall(next_x):
                 paddles[1].score += 1
-                self.reset_ball()
+                self.reset()
                 return
 
             elif self.collides_with_floor(next_y):
@@ -127,7 +127,7 @@ class Ball:
 
         return next_x >= self.display.get_width() - self.size
 
-    def reset_ball(self):
+    def reset(self):
         n = random.randint(0, 1)
         x_shift = -200 if n == 0 else 200
         x_dir_shift = 1 if n == 0 else -1
