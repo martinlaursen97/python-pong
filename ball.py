@@ -105,7 +105,11 @@ class Ball:
         self.trajectory_pos = temp_trajectory_pos
 
     def collides_with_paddle(self, paddle, next_x, next_y):
-        within_x_plane = paddle.position.x - paddle.width / 2 <= next_x <= paddle.position.x + paddle.width / 2
+        if self.position.x < self.display.get_width() / 2:
+            within_x_plane = paddle.position.x - paddle.width / 2 <= next_x <= paddle.position.x + self.size + paddle.width / 2
+        else:
+            within_x_plane = -self.size + paddle.position.x - paddle.width / 2 <= next_x <= paddle.position.x + paddle.width / 2
+
         within_y_plane = paddle.position.y - paddle.height / 2 <= next_y <= paddle.position.y + paddle.height / 2
         return within_x_plane and within_y_plane
 
