@@ -9,11 +9,11 @@ class Ball:
         self.direction = direction
         self.speed = speed
 
-        self.initial_speed = speed
+        self.INITIAL_SPEED = speed
 
-        self.size = size
+        self.SIZE = size
         self.display = display
-        self.shooting_angle = 80
+        self.ANGLE_DAMPER = 80
         self.PADDLE_GAP = paddle_gap
 
         self.set_trajectory_pos()
@@ -27,7 +27,7 @@ class Ball:
         self.position.y = next_y
 
     def draw(self):
-        pygame.draw.circle(self.display, (255, 255, 255), self.position, self.size)
+        pygame.draw.circle(self.display, (255, 255, 255), self.position, self.SIZE)
 
     def check_collisions(self, paddles):
 
@@ -50,9 +50,9 @@ class Ball:
                     left_side = self.position.x < self.display.get_width() / 2
 
                     if left_side:
-                        temp_shifted_paddle_pos.x -= self.shooting_angle
+                        temp_shifted_paddle_pos.x -= self.ANGLE_DAMPER
                     else:
-                        temp_shifted_paddle_pos.x += self.shooting_angle
+                        temp_shifted_paddle_pos.x += self.ANGLE_DAMPER
 
                     new_dir = (self.position - temp_shifted_paddle_pos).normalize()
                     self.direction = new_dir
@@ -86,11 +86,11 @@ class Ball:
         self.move(next_x, next_y)
 
     def reset_trajectory_pos(self):
-        self.trajectory_pos.x = self.PADDLE_GAP + self.size / 2
+        self.trajectory_pos.x = self.PADDLE_GAP + self.SIZE / 2
         self.trajectory_pos.y = self.display.get_height() / 2
 
     def set_trajectory_pos(self):
-        x_paddle_plane = self.display.get_width() - (self.PADDLE_GAP + self.size / 2)
+        x_paddle_plane = self.display.get_width() - (self.PADDLE_GAP + self.SIZE / 2)
         dir_norm = self.direction.normalize()
         temp_trajectory_pos = pygame.Vector2(self.position.x, self.position.y)
 
@@ -106,26 +106,24 @@ class Ball:
 
     def collides_with_paddle(self, paddle, next_x, next_y):
         if self.position.x < self.display.get_width() / 2:
-            within_x_plane = paddle.position.x - paddle.width / 2 <= next_x <= paddle.position.x + self.size + paddle.width / 2
+            within_x_plane = paddle.position.x - paddle.width / 2 <= next_x <= paddle.position.x + self.SIZE + paddle.width / 2
         else:
-            within_x_plane = -self.size + paddle.position.x - paddle.width / 2 <= next_x <= paddle.position.x + paddle.width / 2
+            within_x_plane = -self.SIZE + paddle.position.x - paddle.width / 2 <= next_x <= paddle.position.x + paddle.width / 2
 
         within_y_plane = paddle.position.y - paddle.height / 2 <= next_y <= paddle.position.y + paddle.height / 2
         return within_x_plane and within_y_plane
 
     def collides_with_roof(self, next_y):
-        return next_y < self.size
+        return next_y < self.SIZE
 
     def collides_with_floor(self, next_y):
-        return next_y > self.display.get_height() - self.size
+        return next_y > self.display.get_height() - self.SIZE
 
     def collides_with_left_wall(self, next_x):
-
-        return next_x <= self.size
+        return next_x <= self.SIZE
 
     def collides_with_right_wall(self, next_x):
-
-        return next_x >= self.display.get_width() - self.size
+        return next_x >= self.display.get_width() - self.SIZE
 
     def reset(self):
         n = random.randint(0, 1)
@@ -136,7 +134,7 @@ class Ball:
         self.position.y = self.display.get_height() / 2
         self.direction.x = x_dir_shift
         self.direction.y = y_dir_shift
-        self.speed = self.initial_speed
+        self.speed = self.INITIAL_SPEED
 
         # if n == 0, the ball will go towards the computers side
         if n == 0:
