@@ -10,11 +10,11 @@ class Ball:
         self.speed = speed
 
         self.INITIAL_SPEED = speed
-
         self.SIZE = size
-        self.display = display
         self.ANGLE_DAMPER = 80
         self.PADDLE_GAP = paddle_gap
+
+        self.display = display
 
         self.set_trajectory_pos()
 
