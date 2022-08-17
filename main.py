@@ -39,6 +39,7 @@ def mainloop():
     down = False
 
     while True:
+        pygame.display.set_caption("pong - speed | {}".format(str(ball.speed)))
         text = font.render("{} - {}".format(paddle_player.score, paddle_computer.score), True, (255, 255, 255))
         text_rect = text.get_rect()
         text_rect.center = (SCREEN_WIDTH / 2, 20)
