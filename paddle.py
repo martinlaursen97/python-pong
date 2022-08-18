@@ -48,7 +48,7 @@ class Computer(Paddle):
         if self.position.y > ball_position.y:
             self.move((0, -self.paddle_speed * dt))
         else:
-            self.move((0, self.paddle_speed, dt))
+            self.move((0, self.paddle_speed * dt))
 
     def track_ball_trajectory(self, ball_trajectory_pos, dt):
         if self.position.y > ball_trajectory_pos.y:

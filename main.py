@@ -28,7 +28,7 @@ COMPUTER_PADDLE_SPEED = 5
 INITIAL_BALL_SPEED = 7
 BALL_SIZE = 10
 
-DIFFICULTY = Difficulty.HARD
+DIFFICULTY = Difficulty.EASY
 
 font = pygame.font.Font("freesansbold.ttf", 32)
 
