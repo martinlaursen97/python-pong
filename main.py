@@ -34,7 +34,7 @@ font = pygame.font.Font("freesansbold.ttf", 32)
 
 # Initialize objects
 ball = Ball(Vector2(PADDLE_GAP + BALL_SIZE + 10, 50), Vector2(1, 0.5), INITIAL_BALL_SPEED, BALL_SIZE, DISPLAY,
-            PADDLE_GAP)
+            PADDLE_GAP, DIFFICULTY)
 
 paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY)
 paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY,

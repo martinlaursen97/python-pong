@@ -1,10 +1,10 @@
 import random
 
 import pygame
-
+import difficulty
 
 class Ball:
-    def __init__(self, position, direction, speed, size, display, paddle_gap):
+    def __init__(self, position, direction, speed, size, display, paddle_gap, difficulty):
         self.position = position
         self.direction = direction
         self.speed = speed
@@ -15,8 +15,9 @@ class Ball:
         self.PADDLE_GAP = paddle_gap
 
         self.display = display
+        self.DIFFICULTY = difficulty
 
-        self.set_trajectory_pos()
+        self.set_trajectory_pos(0)
 
     def update(self, paddles, dt):
         self.check_collisions(paddles, dt)
@@ -59,20 +60,20 @@ class Ball:
 
                     self.move(next_x, next_y)
                     if left_side:
-                        self.set_trajectory_pos()
+                        self.set_trajectory_pos(paddles[1].height)
                     else:
                         self.reset_trajectory_pos()
                     return
 
             if self.collides_with_right_wall(next_x):
                 paddles[0].score += 1
-                self.reset()
+                self.reset(paddles[1].height)
                 self.reset_trajectory_pos()
                 return
 
             elif self.collides_with_left_wall(next_x):
                 paddles[1].score += 1
-                self.reset()
+                self.reset(paddles[1].height)
                 return
 
             elif self.collides_with_floor(next_y):
@@ -89,7 +90,7 @@ class Ball:
         self.trajectory_pos.x = self.PADDLE_GAP + self.SIZE / 2
         self.trajectory_pos.y = self.display.get_height() / 2
 
-    def set_trajectory_pos(self):
+    def set_trajectory_pos(self, paddle_height):
         x_paddle_plane = self.display.get_width() - (self.PADDLE_GAP + self.SIZE / 2)
         dir_norm = self.direction.normalize()
         temp_trajectory_pos = pygame.Vector2(self.position.x, self.position.y)
@@ -102,6 +103,8 @@ class Ball:
 
             temp_trajectory_pos += dir_norm
 
+        if self.DIFFICULTY == difficulty.Difficulty.IMPOSSIBLE:
+            temp_trajectory_pos.y += random.randint(-paddle_height / 2 - 1, paddle_height / 2 - 1)
         self.trajectory_pos = temp_trajectory_pos
 
     def collides_with_paddle(self, paddle, next_x, next_y):
@@ -125,7 +128,7 @@ class Ball:
     def collides_with_right_wall(self, next_x):
         return next_x >= self.display.get_width() - self.SIZE
 
-    def reset(self):
+    def reset(self, paddle_height):
         n = random.randint(0, 1)
         x_shift = -200 if n == 0 else 200
         x_dir_shift = 1 if n == 0 else -1
@@ -138,4 +141,4 @@ class Ball:
 
         # if n == 0, the ball will go towards the computers side
         if n == 0:
-            self.set_trajectory_pos()
+            self.set_trajectory_pos(paddle_height)
