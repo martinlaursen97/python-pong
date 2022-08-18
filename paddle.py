@@ -37,7 +37,7 @@ class Computer(Paddle):
         self.DIFFICULTY = _difficulty
 
     def update(self, ball, dt):
-        if self.DIFFICULTY == difficulty.Difficulty.HARD:
+        if self.DIFFICULTY == difficulty.Difficulty.HARD or difficulty.Difficulty.IMPOSSIBLE:
             self.track_ball_trajectory(ball.trajectory_pos, dt)
         else:
             self.track_ball(ball.position, dt)
