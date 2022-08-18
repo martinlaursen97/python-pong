@@ -22,6 +22,8 @@ TARGET_FPS = 60
 BG_COLOR = (0, 0, 0)
 
 PADDLE_GAP = 50
+PADDLE_HEIGHT = 150
+PADDLE_WIDTH = 20
 PLAYER_PADDLE_SPEED = 7
 COMPUTER_PADDLE_SPEED = 5
 
@@ -36,8 +38,8 @@ font = pygame.font.Font("freesansbold.ttf", 32)
 ball = Ball(Vector2(PADDLE_GAP + BALL_SIZE + 10, 50), Vector2(1, 0.5), INITIAL_BALL_SPEED, BALL_SIZE, DISPLAY,
             PADDLE_GAP, DIFFICULTY)
 
-paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY)
-paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), 20, 150, DISPLAY,
+paddle_player = Player(Vector2(PADDLE_GAP, SCREEN_HEIGHT / 2), PADDLE_WIDTH, PADDLE_HEIGHT, DISPLAY)
+paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2), PADDLE_WIDTH, PADDLE_HEIGHT, DISPLAY,
                            COMPUTER_PADDLE_SPEED, DIFFICULTY)
 
 paddles = [paddle_player, paddle_computer]
