@@ -3,6 +3,7 @@ import random
 import pygame
 import difficulty
 
+
 class Ball:
     def __init__(self, position, direction, speed, size, display, paddle_gap, difficulty):
         self.position = position

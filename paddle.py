@@ -55,4 +55,3 @@ class Computer(Paddle):
             self.move((0, -self.paddle_speed * dt))
         else:
             self.move((0, self.paddle_speed * dt))
-
