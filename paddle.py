@@ -36,23 +36,23 @@ class Computer(Paddle):
         self.paddle_speed = paddle_speed
         self.DIFFICULTY = _difficulty
 
-    def update(self, ball):
+    def update(self, ball, dt):
         if self.DIFFICULTY == difficulty.Difficulty.HARD:
-            self.track_ball_trajectory(ball.trajectory_pos)
+            self.track_ball_trajectory(ball.trajectory_pos, dt)
         else:
-            self.track_ball(ball.position)
+            self.track_ball(ball.position, dt)
 
         self.draw()
 
-    def track_ball(self, ball_position):
+    def track_ball(self, ball_position, dt):
         if self.position.y > ball_position.y:
-            self.move((0, -self.paddle_speed))
+            self.move((0, -self.paddle_speed * dt))
         else:
-            self.move((0, self.paddle_speed))
+            self.move((0, self.paddle_speed, dt))
 
-    def track_ball_trajectory(self, ball_trajectory_pos):
+    def track_ball_trajectory(self, ball_trajectory_pos, dt):
         if self.position.y > ball_trajectory_pos.y:
-            self.move((0, -self.paddle_speed))
+            self.move((0, -self.paddle_speed * dt))
         else:
-            self.move((0, self.paddle_speed))
+            self.move((0, self.paddle_speed * dt))
 

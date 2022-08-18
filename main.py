@@ -1,27 +1,38 @@
 import sys
+
 from pygame import *
 from ball import *
-from paddle import *
 from difficulty import *
+from paddle import *
+
+import time
 
 pygame.init()
 
+# Setup display
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600
 
 DISPLAY = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
 
+# Set variables
+FPS = 60
+TARGET_FPS = 60
+
 BG_COLOR = (0, 0, 0)
 
 PADDLE_GAP = 50
 PLAYER_PADDLE_SPEED = 5
-COMPUTER_PADDLE_SPEED = 3
+COMPUTER_PADDLE_SPEED = 5
 
 INITIAL_BALL_SPEED = 5
 BALL_SIZE = 10
 
 DIFFICULTY = Difficulty.HARD
 
+font = pygame.font.Font("freesansbold.ttf", 32)
+
+# Initialize objects
 ball = Ball(Vector2(PADDLE_GAP + BALL_SIZE + 10, 50), Vector2(1, 0.5), INITIAL_BALL_SPEED, BALL_SIZE, DISPLAY,
             PADDLE_GAP)
 
@@ -31,18 +42,28 @@ paddle_computer = Computer(Vector2(SCREEN_WIDTH - PADDLE_GAP, SCREEN_HEIGHT / 2)
 
 paddles = [paddle_player, paddle_computer]
 
-font = pygame.font.Font("freesansbold.ttf", 32)
-
 
 def mainloop():
     up = False
     down = False
 
+    # Delta time
+    clock = pygame.time.Clock()
+    prev_time = time.time()
+
     while True:
+
+        # Set window title and scoreboard
         pygame.display.set_caption("pong - speed | {}".format(str(ball.speed)))
         text = font.render("{} - {}".format(paddle_player.score, paddle_computer.score), True, (255, 255, 255))
         text_rect = text.get_rect()
         text_rect.center = (SCREEN_WIDTH / 2, 20)
+
+        # Calc delta time
+        clock.tick(FPS)
+        now = time.time()
+        dt = now - prev_time
+        prev_time = now
 
         for e in pygame.event.get():
 
@@ -70,20 +91,20 @@ def mainloop():
                 sys.exit()
 
         if up:
-            paddle_player.move((0, -PLAYER_PADDLE_SPEED))
+            paddle_player.move((0, -PLAYER_PADDLE_SPEED * dt * TARGET_FPS))
 
         if down:
-            paddle_player.move((0, PLAYER_PADDLE_SPEED))
+            paddle_player.move((0, PLAYER_PADDLE_SPEED * dt * TARGET_FPS))
 
         DISPLAY.fill(BG_COLOR)
         DISPLAY.blit(text, text_rect)
 
-        ball.update(paddles)
         paddle_player.update()
-        paddle_computer.update(ball)
+        paddle_computer.update(ball, dt * TARGET_FPS)
+
+        ball.update(paddles, dt * TARGET_FPS)
 
         pygame.display.update()
-        pygame.time.delay(10)
 
 
 if __name__ == "__main__":

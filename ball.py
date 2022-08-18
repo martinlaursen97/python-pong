@@ -18,8 +18,8 @@ class Ball:
 
         self.set_trajectory_pos()
 
-    def update(self, paddles):
-        self.check_collisions(paddles)
+    def update(self, paddles, dt):
+        self.check_collisions(paddles, dt)
         self.draw()
 
     def move(self, next_x, next_y):
@@ -29,7 +29,7 @@ class Ball:
     def draw(self):
         pygame.draw.circle(self.display, (255, 255, 255), self.position, self.SIZE)
 
-    def check_collisions(self, paddles):
+    def check_collisions(self, paddles, dt):
 
         dir_norm = self.direction.normalize()
         next_x = self.position.x
@@ -38,8 +38,8 @@ class Ball:
         # check for collision between current and next position
         for i in range(self.speed):
 
-            next_x += dir_norm.x
-            next_y += dir_norm.y
+            next_x += dir_norm.x * dt
+            next_y += dir_norm.y * dt
 
             for paddle in paddles:
                 if self.collides_with_paddle(paddle, next_x, next_y):
