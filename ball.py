@@ -105,7 +105,7 @@ class Ball:
             temp_trajectory_pos += dir_norm
 
         if self.DIFFICULTY == difficulty.Difficulty.IMPOSSIBLE:
-            temp_trajectory_pos.y += random.randint(-paddle_height / 2 - 1, paddle_height / 2 - 1)
+            temp_trajectory_pos.y += random.randint(-paddle_height / 2 - 5, paddle_height / 2 - 5)
         self.trajectory_pos = temp_trajectory_pos
 
     def collides_with_paddle(self, paddle, next_x, next_y):
